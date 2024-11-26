@@ -8,8 +8,7 @@ import ru.netology.web.page.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.netology.web.data.DataHelper.generateValidAmount;
-import static ru.netology.web.data.DataHelper.getMaskedNumber;
+import static ru.netology.web.data.DataHelper.*;
 
 public class TransferTest {
     DashboardPage dashboardPage;
@@ -47,9 +46,9 @@ public class TransferTest {
 
     @Test
     void shouldGetErrorIfBalanceLessAmount() {
-        var amount = generateValidAmount(secondCardBalance);
+        var amount = generateInvalidAmount(secondCardBalance);
         var transferPage = dashboardPage.selectCard(firstCardinfo);
-        transferPage.doValidTransfer(String.valueOf(amount), secondCardinfo);
+        transferPage.doTransfer(String.valueOf(amount), secondCardinfo);
         transferPage.findErrorMessage("Выполнена попытка перевода суммы, превышающей остаток на карте списания");
     }
 }
